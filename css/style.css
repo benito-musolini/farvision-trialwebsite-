@@ -397,3 +397,226 @@ body {
     color: var(--corporate-blue);
     font-weight: 600;
 }   
+/* ===== EPIC SPLASH SCREEN ===== */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--corporate-blue) 0%, #0a2540 50%, var(--corporate-orange) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.splash-container {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Logo Animation */
+.logo-wrapper {
+    margin-bottom: 2rem;
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+.splash-logo {
+    width: 150px;
+    height: 150px;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    animation: logoPulse 2s ease-in-out infinite;
+}
+
+/* Company Name Letter-by-Letter Animation */
+.company-name {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--professional-white);
+    margin-bottom: 1rem;
+    letter-spacing: 4px;
+}
+
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px) rotateY(90deg);
+    animation: letterReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    animation-delay: calc(var(--i) * 0.1s);
+    text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+}
+
+/* Tagline Animation */
+.splash-tagline {
+    font-size: 1.5rem;
+    color: var(--professional-white);
+    font-weight: 300;
+    letter-spacing: 3px;
+    opacity: 0;
+    transform: translateX(-100px);
+    animation: slideInRight 1s ease-out 1s forwards;
+    position: relative;
+}
+
+.splash-tagline::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--corporate-orange);
+    animation: lineExpand 1s ease-out 2s forwards;
+}
+
+/* Background Animated Elements */
+.splash-bg-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+    animation: floatAround 20s linear infinite;
+}
+
+.circle-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 25s;
+}
+
+.circle-2 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 10%;
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+.circle-3 {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: -10s;
+    animation-duration: 15s;
+}
+
+/* ===== EPIC ANIMATIONS ===== */
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+@keyframes logoPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)) brightness(1);
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.6)) brightness(1.1);
+    }
+}
+
+@keyframes letterReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) rotateY(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateY(0deg);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes lineExpand {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes floatAround {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(100px, 50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(50px, 100px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+}
+
+/* Splash Screen Exit Animations */
+.splash-screen.fade-out {
+    animation: splashFadeOut 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.splash-screen.slide-up {
+    animation: splashSlideUp 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes splashFadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    70% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
+        visibility: hidden;
+    }
+}
+
+@keyframes splashSlideUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}

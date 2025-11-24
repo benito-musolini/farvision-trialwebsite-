@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Portfolio | Farvision Enterprises Limited</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== PORTFOLIO SPECIFIC STYLES ===== */
+        .portfolio-hero {
+            background: linear-gradient(135deg, var(--corporate-blue) 0%, var(--corporate-light-blue) 100%);
+            color: var(--professional-white);
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .filter-buttons {
+            margin: 2rem 0;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--corporate-orange);
+            color: var(--corporate-orange);
+            padding: 10px 25px;
+            margin: 0 10px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--corporate-orange);
+            color: var(--professional-white);
+            transform: translateY(-2px);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* Epic Portfolio Cards */
+        .portfolio-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--professional-white);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255, 107, 53, 0.2);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-card:hover .portfolio-image {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(26, 75, 140, 0.9) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-category {
+            background: var(--corporate-orange);
+            color: var(--professional-white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .portfolio-title {
+            color: var(--professional-white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--professional-white);
+            font-size: 0.8rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Project Details Card */
+        .project-detail-card {
+            background: var(--professional-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+        }
+
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        /* Stats Section */
+        .portfolio-stats-section {
+            background: linear-gradient(135deg, var(--background-gray) 0%, var(--professional-white) 100%);
+            padding: 80px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--professional-white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--corporate-orange), #FF8C35);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .stat-icon i {
+            font-size: 2rem;
+            color: var(--professional-white);
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Modal for Image Viewing */
+        .portfolio-modal .modal-content {
+            border-radius: 20px;
+            border: none;
+        }
+
+        .portfolio-modal .modal-header {
+            border-bottom: none;
+            background: var(--corporate-blue);
+            color: var(--professional-white);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .portfolio-modal .modal-body img {
+            width: 100%;
+            border-radius: 0 0 20px 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Same as main site) -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/WhatsApp Image 2025-11-24 at 20.50.36.jpeg" width="30" alt="">
+                FARVISION ENTERPRISES LTD
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="portfolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Portfolio Hero Section -->
+    <section class="portfolio-hero">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Our Portfolio</h1>
+            <p class="lead">Showcasing our excellence in construction, civil works, and electrical engineering projects</p>
+        </div>
+    </section>
+
+    <!-- Filter Buttons -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="construction">Construction</button>
+                        <button class="filter-btn" data-filter="civil">Civil Works</button>
+                        <button class="filter-btn" data-filter="electrical">Electrical</button>
+                        <button class="filter-btn" data-filter="commercial">Commercial</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="portfolio-card fade-in" data-category="construction commercial">
+                    <img src="images/projects/school.jpeg" alt="School Construction" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Construction</span>
+                        <h3 class="portfolio-title">Chief Mbogori Girls High School</h3>
+                        <p class="portfolio-description">Complete construction of administration block and multipurpose dining hall with modern facilities.</p>
+                        <div class="portfolio-stats">
+                            <div class="stat"><i class="fas fa-calendar"></i> 12 Months</div>
+                            <div class="stat"><i class="fas fa-money-bill-wave"></i> Ksh 12.5M</div>
+                            <div class="stat"><i class="fas fa-map-marker-alt"></i> Tharaka Nithi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="portfolio-card fade-in" data-category="electrical commercial construction">
+                    <img src="images/projects/WhatsApp Image 2025-11-24 at 20.50.19 (1).jpeg" alt="Bank Electrical" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Construction</span>
+                        <h3 class="portfolio-title">Ruiru Flats</h3>
+                        <p class="portfolio-description">Durable, well-finished residential flats in Ruiru built for comfort and long-term value.</p>
+                        <div class="portfolio-stats">
+                            <div class="stat"><i class="fas fa-calendar"></i> 13 Months</div>
+                            <div class="stat"><i class="fas fa-money-bill-wave"></i> Ksh 3.2M</div>
+                            <div class="stat"><i class="fas fa-map-marker-alt"></i> Nairobi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="portfolio-card fade-in" data-category="civil">
+                    <img src="images/projects/road.jpeg" alt="Road Construction" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Civil Works</span>
+                        <h3 class="portfolio-title">Gitare Road Construction</h3>
+                        <p class="portfolio-description">Road construction and drainage system installation leading to PCEA Gitare Church.</p>
+                        <div class="portfolio-stats">
+                            <div class="stat"><i class="fas fa-calendar"></i> 6 Months</div>
+                            <div class="stat"><i class="fas fa-money-bill-wave"></i> Ksh 1.8M</div>
+                            <div class="stat"><i class="fas fa-map-marker-alt"></i> Chogoria</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="portfolio-card fade-in" data-category="electrical industrial">
+                    <img src="images/projects/construction.jpeg" alt="Factory Electrical" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Electrical</span>
+                        <h3 class="portfolio-title">Vega Snacks Factory</h3>
+                        <p class="portfolio-description">Industrial machine installation and factory power systems for food processing plant.</p>
+                        <div class="portfolio-stats">
+                            <div class="stat"><i class="fas fa-calendar"></i> 12 Months</div>
+                            <div class="stat"><i class="fas fa-money-bill-wave"></i> Ksh 2.2M</div>
+                            <div class="stat"><i class="fas fa-map-marker-alt"></i> Kikuyu</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="portfolio-card fade-in" data-category="construction">
+                    <img src="images/projects/WhatsApp Image 2025-11-24 at 20.28.03.jpeg" alt="Coffee Factory" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Construction</span>
+                        <h3 class="portfolio-title">Mwithanga Coffee Factory</h3>
+                        <p class="portfolio-description">Construction of complete coffee processing factory building and facilities.</p>
+                        <div class="portfolio-stats">
+                            <div class="stat"><i class="fas fa-calendar"></i> 18 Months</div>
+                            <div class="stat"><i class="fas fa-money-bill-wave"></i> Ksh 12M</div>
+                            <div class="stat"><i class="fas fa-map-marker-alt"></i> Chogoria</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="portfolio-card fade-in" data-category="electrical commercial">
+                    <img src="images/projects/petrolstation.jpeg" alt="Petrol Station" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">Electrical</span>
+                        <h3 class="portfolio-title">Trinity NRG</h3>
+                        <p class="portfolio-description">Complete electrical installation for 6-pump station with car wash and restaurant facilities.</p>
+                        <div class="portfolio-stats">
+                            <div class="stat"><i class="fas fa-calendar"></i> 8 Months</div>
+                            <div class="stat"><i class="fas fa-money-bill-wave"></i> Ksh 2.5M</div>
+                            <div class="stat"><i class="fas fa-map-marker-alt"></i> Dagoretti</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Stats -->
+    <section class="portfolio-stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h3 class="stat-number">50+</h3>
+                        <p class="stat-label">Projects Completed</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 class="stat-number">22+</h3>
+                        <p class="stat-label">Years Experience</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="stat-number">15+</h3>
+                        <p class="stat-label">Professional Staff</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 class="stat-number">100%</h3>
+                        <p class="stat-label">Client Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Portfolio JavaScript -->
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    portfolioCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, 100);
+                        } else {
+                            card.classList.remove('visible');
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 400);
+                        }
+                    });
+                });
+            });
+
+            // Fade in animation on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = () => {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', fadeInOnScroll);
+            fadeInOnScroll(); // Initial check
+        });
+    </script>
+</body>
+</html>                                <p style="font-size: xx-small;"> 
