@@ -1,0 +1,399 @@
+/* ===== CSS VARIABLES ===== */
+:root {
+    --corporate-orange: #FF6B35;
+    --corporate-blue: #1A4B8C;
+    --corporate-light-blue: #2D6FCF;
+    --professional-white: #FFFFFF;
+    --text-dark: #2D3748;
+    --text-light: #718096;
+    --background-gray: #F7FAFC;
+}
+
+/* ===== GLOBAL STYLES ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--corporate-blue) 0%, var(--corporate-light-blue) 100%);
+    color: var(--professional-white);
+    padding: 140px 0 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3') center/cover;
+    opacity: 0.1;
+}
+
+/* ===== NAVIGATION ===== */
+.navbar {
+    background-color: var(--professional-white) !important;
+    box-shadow: 0 2px 20px rgba(26, 75, 140, 0.1);
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    color: var(--corporate-blue) !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    color: var(--corporate-blue) !important;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--corporate-orange) !important;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background-color: var(--corporate-orange);
+    border-color: var(--corporate-orange);
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #E55A2B;
+    border-color: #E55A2B;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+}
+
+.btn-outline-primary {
+    border-color: var(--corporate-orange);
+    color: var(--corporate-orange);
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--corporate-orange);
+    border-color: var(--corporate-orange);
+}
+
+/* ===== CLIENT LOGOS ===== */
+.client-logo {
+    height: 50px;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.client-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* ===== SERVICE CARDS ===== */
+.service-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    background: var(--professional-white);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.15);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--corporate-orange), #FF8C35);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.service-icon i {
+    font-size: 2rem;
+    color: var(--professional-white);
+}
+
+/* ===== ANIMATED CAROUSEL ===== */
+.hero-carousel {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item {
+    height: 500px;
+    position: relative;
+}
+
+.carousel-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(26, 75, 140, 0.8), rgba(255, 107, 53, 0.8));
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    bottom: 50%;
+    transform: translateY(50%);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-caption h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: slideInUp 0.8s ease;
+}
+
+.carousel-caption p {
+    font-size: 1.2rem;
+    animation: slideInUp 1s ease;
+}
+
+/* Carousel Animations */
+.carousel-item.active .carousel-caption h3 {
+    animation: slideInUp 0.8s ease;
+}
+
+.carousel-item.active .carousel-caption p {
+    animation: slideInUp 1s ease;
+}
+
+.carousel-item.active .carousel-caption .btn {
+    animation: slideInUp 1.2s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.carousel-item.active .carousel-image {
+    animation: zoomIn 8s ease;
+}
+
+/* ===== PROJECT BADGES ===== */
+.project-badge {
+    background: linear-gradient(135deg, var(--corporate-orange), #FF8C35);
+    color: var(--professional-white);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+}
+
+/* ===== SECTIONS ===== */
+.section-title {
+    color: var(--corporate-blue);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--corporate-orange), var(--corporate-blue));
+    border-radius: 2px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 100px 0 60px;
+    }
+    
+    .carousel-item {
+        height: 400px;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ===== ABOUT SECTION ===== */
+.about-section {
+    background: linear-gradient(135deg, var(--background-gray) 0%, var(--professional-white) 100%);
+    padding: 100px 0;
+}
+
+.team-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    background: var(--professional-white);
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.15);
+}
+
+.team-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--corporate-orange);
+    margin: 0 auto 1rem;
+}
+
+.certification-badge {
+    background: var(--corporate-blue);
+    color: var(--professional-white);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* ===== PROJECTS SECTION ===== */
+.projects-section {
+    background-color: var(--background-gray);
+    padding: 100px 0;
+}
+
+.project-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    background: var(--professional-white);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(26, 75, 140, 0.15);
+}
+
+.project-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.project-value {
+    color: var(--corporate-orange);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--corporate-blue) 0%, var(--corporate-light-blue) 100%);
+    color: var(--professional-white);
+}
+
+.contact-info-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--corporate-orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.contact-icon i {
+    font-size: 1.5rem;
+    color: var(--professional-white);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background-color: var(--text-dark);
+    color: var(--professional-white);
+    padding: 50px 0 20px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: var(--corporate-orange);
+    transform: translateY(-3px);
+}
+
+/* ===== STATS COUNTER ===== */
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--corporate-orange);
+}
+
+.stat-label {
+    color: var(--corporate-blue);
+    font-weight: 600;
+}   
