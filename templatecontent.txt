@@ -1,0 +1,44 @@
+New Consultation Request - Farvision Enterprises
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #1A4B8C; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }
+        .content { background: #f9f9f9; padding: 20px; border-radius: 0 0 10px 10px; }
+        .field { margin-bottom: 15px; }
+        .label { font-weight: bold; color: #1A4B8C; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New Consultation Request</h2>
+            <p>Farvision Enterprises Limited</p>
+        </div>
+        <div class="content">
+            <div class="field">
+                <span class="label">Name:</span> {{from_name}}
+            </div>
+            <div class="field">
+                <span class="label">Email:</span> {{from_email}}
+            </div>
+            <div class="field">
+                <span class="label">Company:</span> {{company}}
+            </div>
+            <div class="field">
+                <span class="label">Service Required:</span> {{service}}
+            </div>
+            <div class="field">
+                <span class="label">Project Details:</span><br>
+                {{message}}
+            </div>
+            <div class="field" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #1A4B8C;">
+                <p><strong>Received:</strong> {{date}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gallery | Farvision Enterprises Limited</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== PURE IMAGE GALLERY STYLES ===== */
+        .gallery-hero {
+            background: linear-gradient(135deg, var(--corporate-blue) 0%, var(--corporate-light-blue) 100%);
+            color: var(--professional-white);
+            padding: 100px 0 40px;
+            text-align: center;
+        }
+
+        .back-btn {
+            background: var(--corporate-orange);
+            color: var(--professional-white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: #E55A2B;
+            transform: translateY(-2px);
+            color: var(--professional-white);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Masonry Grid Gallery - PURE IMAGES */
+        .gallery-grid {
+            columns: 4 300px;
+            column-gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255, 107, 53, 0.3);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        /* Simple overlay with just zoom icon */
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 75, 140, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .zoom-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--corporate-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--professional-white);
+            font-size: 1.5rem;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .zoom-icon {
+            transform: scale(1);
+        }
+
+        /* Fullscreen Modal */
+        .gallery-modal .modal-content {
+            background: rgba(0, 0, 0, 0.95);
+            border: none;
+            border-radius: 0;
+        }
+
+        .gallery-modal .modal-header {
+            border-bottom: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: transparent;
+        }
+
+        /* VISIBLE CLOSE BUTTON */
+        .gallery-modal .btn-close {
+            background: var(--corporate-orange);
+            opacity: 1;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-modal .btn-close:hover {
+            background: #E55A2B;
+            transform: scale(1.1);
+        }
+
+        .gallery-modal .btn-close::before {
+            content: '×';
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .gallery-modal .modal-body {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .gallery-modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navigation Arrows */
+        .modal-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--corporate-orange);
+            color: var(--professional-white);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .modal-nav:hover {
+            background: #E55A2B;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-prev {
+            left: 30px;
+        }
+
+        .nav-next {
+            right: 30px;
+        }
+
+        /* Loading Animation */
+        .gallery-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: galleryItemAppear 0.6s ease forwards;
+        }
+
+        @keyframes galleryItemAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                columns: 2 200px;
+                padding: 1rem;
+            }
+            
+            .modal-nav {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .nav-prev { left: 15px; }
+            .nav-next { right: 15px; }
+            
+            .gallery-modal .btn-close {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                columns: 1 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/projects/logo.jpeg" width="30" alt="">
+                FARVISION ENTERPRISES LTD
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Hero -->
+    <section class="gallery-hero">
+        <div class="container">
+            <a href="portfolio.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+            <h1 id="projectTitle" class="display-5 fw-bold mb-3">Project Gallery</h1>
+        </div>
+    </section>
+
+    <!-- Pure Image Gallery -->
+    <section class="gallery-section">
+        <div class="container-fluid">
+            <div class="gallery-grid" id="imageGallery">
+                <!-- Images will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Fullscreen Image Modal -->
+    <div class="modal fade gallery-modal" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <button class="modal-nav nav-prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <img id="modalImage" src="" alt="Fullscreen View">
+                    <button class="modal-nav nav-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Gallery JavaScript -->
+    <script src="js/gallery.js"></script>
+</body>
+</html> 
